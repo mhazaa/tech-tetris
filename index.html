@@ -1,0 +1,585 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tech Tetris</title>
+<link rel="stylesheet" href="reset.css">
+<style>
+	@import url('https://fonts.googleapis.com/css?family=Patua+One|Zilla+Slab:300,300i,400,400i,500,500i,600,600i,700,700i');
+	
+	body {
+		background: #2d0e27;
+	}
+	
+	#headerPhoto {
+		width: 100%;
+		background: #591e51;
+		overflow: hidden;
+		position:  relative;	
+	}
+	
+	#headerPhoto img:nth-of-type(1), #headerPhoto img:nth-of-type(2), #headerPhoto img:nth-of-type(3), #headerPhoto img:nth-of-type(4), #headerPhoto img:nth-of-type(5) {
+		position: absolute;
+		width: 100%;
+		height: auto;
+		bottom: 0;
+	}
+	
+	#topMountain {
+		z-index: 20;
+	}
+	
+	#headerPhoto img:nth-of-type(4) {
+		width: 76.97%;
+		left: 0;
+	}
+	
+	#moon {
+		position: absolute;
+		width: 29.8%;
+		height: 200px;
+		background: #fff5fe;
+		bottom: 3%;
+		left: 41%;
+		border-radius: 999px;
+	}
+	
+	#headerPhoto img:nth-of-type(3) {
+		z-index: 2;
+	}
+	
+	#headerPhoto img:nth-of-type(5) {
+		top: 0;
+	}
+	
+	#header {
+		height: 100px;
+		width: 95%;
+		max-width: 1200px;
+		margin: auto;
+		border-bottom: 1px dashed rgba(255,255,255,0.5);
+		position: relative;
+		z-index: 99999;
+	}
+	
+	#header #logo {
+		float: left;
+		background: url(logo2.png) no-repeat;
+		background-size: contain;
+		width: 100px;
+		height: 60px;
+		margin-top: 20px;
+		margin-left: 15px;
+	}
+	
+	#header #logo:hover {
+		-webkit-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		transform: scale(1.1);
+	}
+	
+	#header #logo h1 {
+		text-indent: -999999px;	
+	}
+
+	
+	#header #menu {
+		float: right;
+		height: 100%;
+	}
+	
+	#header #menu li {
+		float: left;
+		margin-right: 15px;
+	}
+	
+	#header #menu li a {
+		text-decoration: none;
+		color: white;
+		text-transform: uppercase;
+		font-family: 'Patua One', cursive;
+		font-size: 14px;
+		font-weight: 100;
+		opacity: 0.7;
+		
+		line-height: 100px;
+	}
+	
+	#header #menu li a:hover {
+		opacity: 1;
+	}
+	
+	#selected {
+		opacity: 1 !important;
+		padding-bottom: 8px;
+		position: relative;
+	}
+	
+	#mainWrap {
+		background: #2d0e27;
+		display: inline-block;
+		width: 100%;
+		padding: 30px 0;	
+		position: relative;
+		z-index: 999999;
+		top: -2px;
+	}
+	
+	#main {
+		width: 95%;
+		max-width: 1200px;
+		margin: auto;
+	}
+	
+	
+	#main div {
+		float: left;
+		width: 24%;
+		position: relative;
+	}
+	
+	#about, #mission, #values {
+		margin-right: 1.33333%;
+	}
+	
+	#main div h2 {
+		font-family: 'Patua One', cursive;
+		color: #f3e9f4;
+		font-size: 42px;
+		text-align: center;
+	}
+	
+	#main div p {
+		font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+		color: #f3e9f4;
+		opacity: 0.7;
+		margin-top: 10px;
+		text-align: justify;
+	}
+	
+	#main div a {
+		display: block;
+		background: #491740;
+		font-family: 'Patua One', cursive;
+		margin-top: 10px;
+		color: #f3e9f4;
+		text-align: center;
+		font-size: 20px;
+		padding: 20px;
+		text-decoration: none;
+		
+		-webkit-transform: scale(0.9);
+		-ms-transform: scale(0.9);
+		transform: scale(0.9);
+	}
+	
+	#main div a:hover {
+		-webkit-transform: scale(1);
+		-ms-transform: scale(1);
+		transform: scale(1);
+	}
+	
+	#footer {
+		float: none;
+		clear: both;
+		width: 100%;
+		position: relative;
+		z-index: 9999999999;
+	}
+	
+	#footer img {
+		width: 76.9%;
+		height: auto;
+		margin-bottom: -5px;
+	}
+	
+	#footerText {
+		width: 100%;
+		background: #3a1232;
+		text-align: center;
+	}
+	
+	#footer ul {
+		display: inline-block;
+	}
+	
+	#footer ul li {
+		display: inline-block;
+		float: left;
+		margin-right: 10px;
+	}
+	
+	#footer ul li a {
+		line-height: 100px;
+		color: white;
+		text-transform: uppercase;
+		font-family: 'Patua One', cursive;
+		font-size: 12px;
+		font-weight: 100;
+		opacity: 0.7;
+	}
+	
+	#footer ul li a:hover {
+		opacity: 1;
+	}
+	
+	#footer p {
+		color: white;
+		text-transform: uppercase;
+		font-family: 'Patua One', cursive;
+		font-size: 12px;
+		font-weight: 100;
+		opacity: 0.7;
+	}
+	
+	#footer p span {
+		margin-left: 10px;
+	}
+	
+	#headerPhoto img:nth-of-type(1) {
+		animation: spinFastest 10s ease infinite;
+		-webkit-animation: spinFastest 10s ease infinite;
+	}
+	
+	#headerPhoto img:nth-of-type(2) {
+		animation: spinFast 10s ease infinite;
+		-webkit-animation: spinFast 10s ease infinite;
+	}
+	
+	#headerPhoto img:nth-of-type(5) {
+		animation: spin 13s ease infinite;
+		-webkit-animation: spin 13s ease infinite;
+	}
+	
+	@keyframes spinFastest {
+		0% {
+			transform: rotate(-6deg);
+		}
+		
+		50% {
+			transform: rotate(6deg);
+		}
+		
+		100% {
+			transform: rotate(-6deg);
+		}	
+	}
+	
+	@keyframes spinFast {
+		0% {
+			transform: rotate(3deg);
+		}
+		
+		50% {
+			transform: rotate(-3deg);
+		}
+		
+		100% {
+			transform: rotate(3deg);
+		}	
+	}
+	
+	@keyframes spin {
+		0% {
+			transform: rotate(-2deg);
+		}
+		
+		50% {
+			transform: rotate(2deg);
+		}
+		
+		100% {
+			transform: rotate(-2deg);
+		}	
+	}
+
+	.birds {
+		position: absolute;
+		top: 200px;
+		background: url(bird.png) no-repeat;
+		background-size: contain;
+		width: 19px;
+		height: 7px;
+		left: 40%;
+	}
+	
+	#birdone {
+		animation: bird 200s infinite, rotate 6s infinite ease;
+		-webkit-animation: bird 200s infinite, rotate 6s infinite ease;
+	}
+	
+	#birdtwo {
+		top: 180px !important;
+		transform: rotate(36deg) scale(0.7);
+		animation: bird 200s infinite 2s;
+		-webkit-animation: bird 200s infinite 2s;
+	}
+	
+	#birdthree {
+		top: 190px !important;
+		transform: scale(0.8);
+		animation: bird 200s infinite 3s, rotate 6s infinite ease;
+		-webkit-animation: bird 200s infinite 3s, rotate 6s infinite ease;
+	}
+	
+	@keyframes rotate {
+		0% {
+			transform: rotate(0deg);
+		}
+		
+		25% {
+			transform: rotate(5deg);
+		}
+		
+		50% {
+			transform: rotate(0deg);
+		}
+		
+		75% {
+			transform: rotate(-5deg);
+		}
+		100% {
+			transform: rotate(0deg);
+		}
+	}
+	
+	@-webkit-keyframes rotate {
+		0% {
+			transform: rotate(0deg);
+		}
+		
+		25% {
+			transform: rotate(15deg);
+		}
+		
+		50% {
+			transform: rotate(0deg);
+		}
+		
+		75% {
+			transform: rotate(-15deg);
+		}
+		100% {
+			transform: rotate(0deg);
+		}
+	}
+	
+	@keyframes bird {
+		0% {
+			left: 40%;
+		}	
+		49.9999999% {
+			left: 100%;
+		}
+		50% {
+			left: -5%;
+		}
+		100% {
+			left: 40%;
+		}	
+	}
+	
+	@-webkit-keyframes bird {
+		0% {
+			left: 40%;
+		}	
+		49% {
+			left: 100%;
+		}
+		50% {
+			left: -5%;
+		}
+		100% {
+			left: 40%;
+		}	
+	}
+	
+	#header #logo, #header #logo:hover, #header #menu li a, #header #menu li a:hover, #main div a, #main div a:hover, #footer ul li a, #footer ul li a:hover {
+		transition:  all 0.2s ease;
+	}
+	
+	#header {
+		animation: headerIntro 1s ease;
+		-webkit-animation: headerIntro 1s ease;
+	}
+	
+	@keyframes headerIntro {
+		from {
+			margin-top: 20px;
+			opacity: 0;
+		}
+		to {
+			margin-top: 0;
+			opacity: 1;
+		}
+	}
+	
+	@-webkit-keyframes headerIntro {
+		from {
+			margin-top: 20px;
+			opacity: 0;
+		}
+		to {
+			margin-top: 0;
+			opacity: 1;
+			
+		}
+	}
+	
+@media only screen and (max-width: 1000px) {
+	
+	#header #menu {
+		display: none;
+	}
+	
+	#header #hamburger {
+		float: right;
+		margin: 37.5px 15px 0 0;
+		width: 35px;
+		height: 25px;
+		background: url(menuicon.png) no-repeat;
+		background-size: contain;
+		opacity: 0.7;
+		cursor: pointer;
+	}
+	
+	#header #hamburger:hover {
+		opacity: 1;
+	}
+	
+	#main {
+		width: 95%;
+	}
+	
+	#main div {
+		float: left;
+		width: 100%;	
+	}
+	
+	#about, #mission, #values {
+		margin-right: 0;
+		padding-bottom: 15px;
+		border-bottom: 1px dashed rgba(255,255,255,0.5);
+	}
+	
+	#main div h2 {
+		margin-top: 15px;
+		font-size: 34px;
+	}
+	
+	#about h2 {
+		margin-top: 0px !important;
+	}
+
+	#main div a {
+		display: inline-block;
+		float: right;
+		background: #491740;
+		font-family: 'Patua One', cursive;
+		margin-top: 10px;
+		color: #f3e9f4;
+		text-align: center;
+		font-size: 15px;
+		padding: 20px;
+		text-decoration: none;
+		
+		-webkit-transform: scale(0.9);
+		-ms-transform: scale(0.9);
+		transform: scale(0.9);
+	}
+}
+</style>
+</head>
+
+<body>
+	<div id="headerPhoto">	
+		<img src="4.png">
+		<img src="3.png">
+		<div id="moon"></div>
+		<img src="2.png">
+		<img id="topMountain" src="1.png">
+		<img src="dots.png">
+	
+		<div class="birds" id="birdone"></div>
+		<div class="birds" id="birdtwo"></div>
+		<div class="birds" id="birdthree"></div>
+		
+		<div id="header">
+			<div id="logo"><h1>BrightNet</h1></div>
+
+			<div id="hamburger"></div>
+			<ul id="menu">
+				<li><a href="#" id="selected">Home</a></li>
+				<li><a href="#">Products</a></li>
+				<li><a href="#">Services</a></li>
+				<li><a href="#">Consultancy</a></li>
+				<li><a href="#">Partners</a></li>
+				<li><a href="#">Contact</a></li>
+				<li id="last"><a href="#">Blog</a></li>	
+			</ul>
+		</div>
+	</div>
+    
+	
+	<div id="mainWrap">
+		<div id="main">
+			<div class="slide" id="about">
+				<h2>About us</h2>
+				<div id="line"></div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non velit ac felis sagittis convallis. Vivamus eleifend, nulla pulvinar venenatis laoreet, lectus ipsum malesuada enim, sed porta tellus turpis at tellus. Etiam in laoreet ex. Sed lacus nibh, sodales hendrerit diam sed, condimentum laoreet neque. Fusce rhoncus ultricies mi quis sollicitudin. Aliquam a ex ut magna tempus ornare sed at arcu. Ut sed eros ipsum.</p>
+				<a href="#" id="readmore">Read More</a>
+			</div>
+
+			<div class="slide" id="mission">
+				<h2>Mission</h2>
+				<div id="line"></div>
+				<p>Phasellus ullamcorper ligula eu interdum consequat. Pellentesque vitae justo in purus congue tincidunt non id lorem. Mauris nec nunc commodo, facilisis justo consequat, congue est. Quisque fermentum blandit odio, non egestas sem maximus vitae. Aenean efficitur tristique elementum. Donec elementum tempor sollicitudin. Maecenas massa leo, finibus a pulvinar nec, egestas vel quam. Donec fermentum ante odio, in scelerisque sem vestibulum id. Pellentesque euismod sit amet nunc a porttitor.</p>
+				<a href="#" id="readmore">Read More</a>
+			</div>
+
+			<div class="slide" id="values">
+				<h2>Our Values</h2>
+				<div id="line"></div>
+				<p>Phasellus nec mollis odio, sit amet fringilla turpis. Phasellus magna massa, placerat ac semper ac, semper ac ante. Mauris et odio malesuada, lobortis nisi quis, luctus lectus. Morbi a nisi nec odio elementum rutrum. Etiam tellus nibh, sodales sit amet urna id, aliquet egestas est. Integer at orci sit amet leo elementum rutrum. Morbi malesuada felis orci, et ultricies quam vestibulum vel. Nunc vel mi dictum, aliquet velit non, maximus nunc. Donec posuere libero in pharetra malesuada. Nulla convallis tortor ultrices tellus porttitor.</p>
+				<a href="#" id="readmore">Read More</a>
+			</div>
+
+			<div class="slide" id="services">
+				<h2>Professional Service</h2>
+				<div id="line"></div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non velit ac felis sagittis convallis. Vivamus eleifend, nulla pulvinar venenatis laoreet, lectus ipsum malesuada enim, sed porta tellus turpis at tellus. Etiam in laoreet ex. Sed lacus nibh, sodales hendrerit diam sed, condimentum laoreet neque. Fusce rhoncus ultricies mi quis sollicitudin. Aliquam a ex ut magna tempus ornare sed at arcu. Ut sed eros ipsum.</p>
+				<a href="#" id="readmore">Read More</a>
+			</div>
+
+		</div>
+	</div>
+	
+	<div id="footer">
+    	<img src="footer.png">
+        <div id="footerText">
+            <ul id="footerMenu">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Consultancy</a></li>
+                <li><a href="#">Partners</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+            <p>(C) 2017 ALL COPYRIGHTS RESERVED.<span>CALL US NOW FOR MORE INFORMATION: 00-9999 9999</span></p>
+		</div>
+	</div>
+
+<script>
+	function bannerHeight() {
+		var banner = document.getElementById('headerPhoto'),
+		bannerWidth = banner.offsetWidth/2.2,
+		moon = document.getElementById('moon');
+		
+		banner.style.height = bannerWidth + 'px';
+		moon.style.height = moon.offsetWidth + 'px'; 
+	}
+	bannerHeight();
+	window.onresize = bannerHeight;
+</script>
+</body>
+</html>
