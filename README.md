@@ -1,6 +1,6 @@
 ### Old project, legacy code
 
-# Tech-Tetris
+# Tech Tetris
 
 https://mhazaa.studio.mcad.edu/techTetris/
 
